@@ -19,6 +19,12 @@ class AdminVue(MemberVue):
             print("  * %s: '%s'" % (command, description))
         print()
 
+    def help_member(self, commands):
+        print()
+        for command, description in commands.items():
+            print("  * %s: '%s'" % (command, description))
+        print()
+
     def ask_command(self, commands):
 
         command = input('command > ').lower().strip()
@@ -64,6 +70,37 @@ class AdminVue(MemberVue):
                     self.show_member(member)
                 elif command == 'help':
                     self.help(commands)
+                else:
+                    print("Unknown command")
+            except ResourceNotFound:
+                self.error_message("Member not found")
+            except InvalidData as e:
+                self.error_message(str(e))
+            except Error as e:
+                self.error_message("An error occurred (%s)" % str(e))
+
+    def member_shell(self):
+
+        commands = {
+            "exit": "Quit the Shell",
+            "creer": "creer un compte",
+            "help": "Show this help"
+        }
+
+        self.help(commands)
+
+        while True:
+            try:
+                command = self.ask_command(commands)
+                if command == 'exit':
+                    # Exit loop
+                    break
+                elif command == 'creer':
+                    user_type = 'unknown'
+                    member = self.create_member(user_type)
+                    self.show_member(member)
+                elif command == 'help':
+                    self.help_member(commands)
                 else:
                     print("Unknown command")
             except ResourceNotFound:
