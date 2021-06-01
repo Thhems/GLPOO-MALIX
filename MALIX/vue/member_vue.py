@@ -149,6 +149,7 @@ class MemberVue:
                             command = self.ask_command(commands_connecte)
                             if command == 'Inscription':
                                 print("A quel évenement voulez-vous vous incrire?")
+
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

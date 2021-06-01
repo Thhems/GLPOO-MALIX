@@ -14,12 +14,6 @@ def main():
     member_controller = MemberController(database_engine)
     member_vue = MemberVue(member_controller).member_shell()
 
-    try:
-        member = member_vue.add_member("customer") #add_member = question crea compte
-        member_vue.show_member(member)
-    except Error as e:
-        member_vue.error_message(str(e))
-
 
 if __name__ == "__main__":
     main()
