@@ -162,6 +162,7 @@ class MemberVue:
                         except Error as e:
                             self.error_message("An error occurred (%s)" % str(e))
                     self.help_member(commands)
+
                 elif command == 'help':
                     self.help_member(commands)
                 else:
