@@ -16,7 +16,7 @@ def main():
     database_event.create_database()
     member_controller = MemberController(database_engine)
     event_controller = EventController(database_event)
-    member_vue = MemberVue(member_controller, event_controller).member_shell()
+    MemberVue(member_controller, event_controller).member_shell()
 
 
 if __name__ == "__main__":
