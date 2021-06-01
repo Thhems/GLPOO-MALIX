@@ -20,10 +20,25 @@ class MemberVue:
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
+
         if user_type != 'customer':
             data['type'] = self._common.ask_type()
         else:
             data['type'] = user_type
+        print('data', data)
+        return self._member_controller.add_member(data)
+
+    def create_member(self, user_type):
+        # Show subscription formular
+        data = {}
+        print("Store user Subscription")
+        print(user_type)
+        print()
+        data['firstname'] = self._common.ask_name(key_name="firstname")
+        data['lastname'] = self._common.ask_name(key_name="lastname")
+        data['email'] = self._common.ask_email()
+        data['type'] = 'customer'
+        print(data)
         return self._member_controller.create_member(data)
 
     def show_member(self, member: dict):
@@ -44,10 +59,10 @@ class MemberVue:
 
         print("Members: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (   member['firstname'].capitalize(),
-                                            member['lastname'].capitalize(),
-                                            member['email'],
-                                            member['type']))
+            print("* %s %s (%s) - %s" % (member['firstname'].capitalize(),
+                                         member['lastname'].capitalize(),
+                                         member['email'],
+                                         member['type']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')

@@ -12,10 +12,10 @@ def main():
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
     database_engine.create_database()
     member_controller = MemberController(database_engine)
-    admin_vue = AdminVue(member_controller)
+    admin_vue = AdminVue(member_controller).member_shell()
 
     try:
-        member = admin_vue.add_member("customer")
+        member = admin_vue.add_member("customer") #add_member = question crea compte
         admin_vue.show_member(member)
     except Error as e:
         admin_vue.error_message(str(e))
