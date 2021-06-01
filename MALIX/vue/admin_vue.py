@@ -91,3 +91,4 @@ class AdminVue(MemberVue, EventVue):
                 self.error_message(str(e))
             except Error as e:
                 self.error_message("An error occurred (%s)" % str(e))
+

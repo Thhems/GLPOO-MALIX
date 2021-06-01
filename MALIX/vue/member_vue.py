@@ -1,4 +1,5 @@
 from vue.common import Common
+from exceptions import ResourceNotFound, Error, InvalidData
 
 
 class MemberVue:
@@ -20,10 +21,34 @@ class MemberVue:
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
+
         if user_type != 'customer':
             data['type'] = self._common.ask_type()
         else:
             data['type'] = user_type
+        print('data', data)
+        return self._member_controller.add_member(data)
+
+    def connexion_member(self, user_type):
+        # Show subscription formular
+        data = {}
+        print("Connexion")
+        email = self._common.ask_name('email')
+        lastname = self._common.ask_name('lastname')
+        member = self._member_controller.search_member_email(email, lastname)
+        return member
+
+    def create_member(self, user_type):
+        # Show subscription formular
+        data = {}
+        print("Store user Subscription")
+        print(user_type)
+        print()
+        data['firstname'] = self._common.ask_name(key_name="firstname")
+        data['lastname'] = self._common.ask_name(key_name="lastname")
+        data['email'] = self._common.ask_email()
+        data['type'] = 'customer'
+        print(data)
         return self._member_controller.create_member(data)
 
     def show_member(self, member: dict):
@@ -44,10 +69,10 @@ class MemberVue:
 
         print("Clients: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (   member['firstname'].capitalize(),
-                                            member['lastname'].capitalize(),
-                                            member['email'],
-                                            member['type']))
+            print("* %s %s (%s) - %s" % (member['firstname'].capitalize(),
+                                         member['lastname'].capitalize(),
+                                         member['email'],
+                                         member['type']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -71,3 +96,80 @@ class MemberVue:
         member = self.search_member()
         self._member_controller.delete_member(member['id'])
         self.succes_message()
+
+    def help_member(self, commands):
+        print()
+        for command, description in commands.items():
+            print("  * %s: '%s'" % (command, description))
+        print()
+
+    def ask_command(self, commands):
+
+        command = input('command > ').lower().strip()
+        while command not in commands.keys():
+            print("Commande inconnue")
+            command = input('command >').lower().strip()
+
+        return command
+
+    def member_shell(self):
+
+        commands = {
+            "exit": "Partir du Shell Shell",
+            "creer": "Creer un compte",
+            "connexion": "Connectez-vous",
+            "help": "Afficher cette aide"
+        }
+
+
+        self.help_member(commands)
+
+        while True:
+            try:
+                command = self.ask_command(commands)
+                if command == 'exit':
+                    # Exit loop
+                    break
+                elif command == 'creer':
+                    user_type = 'unknown'
+                    member = self.create_member(user_type)
+                    self.show_member(member)
+                elif command == 'connexion':
+                    user_type = 'customer'
+                    member = self.connexion_member(user_type)
+                    self.show_member(member)
+                    commands_connecte = {
+                        "Inscription": "S'inscrir à un event",
+                        "deconnexion": "déconnectez-vous",
+                        "help": "Montrer l'aide"
+                    }
+                    self.help_member(commands_connecte)
+                    while True:
+                        try:
+                            command = self.ask_command(commands_connecte)
+                            if command == 'Inscription':
+                                print("A quel évenement voulez-vous vous incrire?")
+                            elif command == 'deconnexion':
+                                break
+                            elif command == 'help':
+                                self.help_member(commands_connecte)
+                            else:
+                                print("Unknown command")
+                        except ResourceNotFound:
+                            self.error_message("Member not found")
+                        except InvalidData as e:
+                            self.error_message(str(e))
+                        except Error as e:
+                            self.error_message("An error occurred (%s)" % str(e))
+                    self.help_member(commands)
+
+                elif command == 'help':
+                    self.help_member(commands)
+                else:
+                    print("Unknown command")
+            except ResourceNotFound:
+                self.error_message("Member not found")
+            except InvalidData as e:
+                self.error_message(str(e))
+            except Error as e:
+                self.error_message("An error occurred (%s)" % str(e))

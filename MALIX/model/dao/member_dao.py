@@ -34,6 +34,13 @@ class MemberDAO(DAO):
         except NoResultFound:
             raise ResourceNotFound()
 
+    def get_by_email(self, email: str, lastname: str):
+        try:
+            return self._database_session.query(Member).filter_by(email=email, lastname=lastname) \
+                .order_by(Member.email).one()
+        except NoResultFound:
+            raise ResourceNotFound()
+
     def create(self, data: dict):
         try:
             member = Member(firstname=data.get('firstname'), lastname=data.get('lastname'), email=data.get('email'), type=data.get('type'))

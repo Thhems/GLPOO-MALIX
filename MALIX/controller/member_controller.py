@@ -62,6 +62,14 @@ class MemberController:
             member = member_dao.get_by_name(firstname, lastname)
             return member.to_dict()
 
+    def search_member_email(self, email, lastname):
+
+        # Query database
+        with self._database_engine.new_session() as session:
+            member_dao = MemberDAO(session)
+            member = member_dao.get_by_email(email, lastname)
+            return member.to_dict()
+
     def _check_profile_data(self, data, update=False):
         name_pattern = re.compile("^[\S-]{2,50}$")
         type_pattern = re.compile("^(customer|seller)$")
