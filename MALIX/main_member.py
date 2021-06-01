@@ -15,7 +15,7 @@ def main():
     admin_vue = AdminVue(member_controller)
 
     try:
-        member = admin_vue.add_member("customer")
+        member = admin_vue.add_member("client")
         admin_vue.show_member(member)
     except Error as e:
         admin_vue.error_message(str(e))

@@ -14,8 +14,8 @@ class MemberVue:
     def add_member(self, user_type):
         # Show subscription formular
         data = {}
-        print("Store user Subscription")
-        print(user_type)
+        print("Inscription du client")
+        # print(user_type)
         print()
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
@@ -27,7 +27,7 @@ class MemberVue:
         return self._member_controller.create_member(data)
 
     def show_member(self, member: dict):
-        print("Member profile: ")
+        print("Profile du client: ")
         print(member['firstname'].capitalize(), member['lastname'].capitalize())
         print("email:", member['email'])
         print("type:", member['type'])
@@ -42,7 +42,7 @@ class MemberVue:
 
         members = self._member_controller.list_members()
 
-        print("Members: ")
+        print("Clients: ")
         for member in members:
             print("* %s %s (%s) - %s" % (   member['firstname'].capitalize(),
                                             member['lastname'].capitalize(),
@@ -58,7 +58,7 @@ class MemberVue:
     def update_member(self):
         member = self.search_member()
         data = {}
-        print("Update Member")
+        print("Update client")
         print()
         data['firstname'] = self._common.ask_name(key_name="firstname", default=member['firstname'])
         data['lastname'] = self._common.ask_name(key_name="lastname", default=member['lastname'])

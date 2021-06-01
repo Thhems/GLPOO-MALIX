@@ -26,3 +26,9 @@ class Common:
 
     def ask_type(self, default=None):
         return self.ask(key_name="type (seller or customer)", regex="^(customer|seller)$", default=default)
+
+    def ask_date(self, default=None):
+        return self.ask(key_name="date", regex=None, default=default)
+
+    def ask_places(self, default=None):
+        return self.ask(key_name="places", regex=None, default=default)
