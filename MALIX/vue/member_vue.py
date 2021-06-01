@@ -32,7 +32,7 @@ class MemberVue:
     def connexion_member(self, user_type):
         # Show subscription formular
         data = {}
-        print("Store user Connexion")
+        print("Connexion")
         email = self._common.ask_name('email')
         lastname = self._common.ask_name('lastname')
         member = self._member_controller.search_member_email(email, lastname)
@@ -107,7 +107,7 @@ class MemberVue:
 
         command = input('command > ').lower().strip()
         while command not in commands.keys():
-            print("Unknown command")
+            print("Commande inconnue")
             command = input('command >').lower().strip()
 
         return command
@@ -115,10 +115,10 @@ class MemberVue:
     def member_shell(self):
 
         commands = {
-            "exit": "Quit the Shell",
-            "creer": "creer un compte",
+            "exit": "Partir du Shell Shell",
+            "creer": "Creer un compte",
             "connexion": "Connectez-vous",
-            "help": "Show this help"
+            "help": "Afficher cette aide"
         }
 
 
