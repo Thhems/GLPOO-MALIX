@@ -1,2 +1,0 @@
-# GLPOOFINAL
-Projet final GLPOO
