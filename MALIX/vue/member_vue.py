@@ -113,6 +113,26 @@ class MemberVue(EventVue):
 
         return command
 
+    def ask_resa(self):
+        print("A quel évènement voulez-vous vous incrire?")
+        self.show_events()
+        events = self._event_controller.list_events()
+        nom = input('Nom de l évènement > ')
+        good = 0
+        while good == 0:
+            for event in events:
+                if nom == event['name']:
+                    good = 1
+            if good == 0:
+                print("Cet evenement n'existe pas")
+                nom = input('Nom de l évènement > ')
+
+        nb = float(input('Nombre de places > '))
+        while nb < 1 or nb > 11:
+            nb = float(input('Nombre de places > '))
+
+        self.resa_event(nom, nb)
+
     def member_shell(self):
 
         commands = {
@@ -150,8 +170,7 @@ class MemberVue(EventVue):
                         try:
                             command = self.ask_command(commands_connecte)
                             if command == 'inscription':
-                                print("A quel évènement voulez-vous vous incrire?")
-                                self.show_events()
+                                self.ask_resa()
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

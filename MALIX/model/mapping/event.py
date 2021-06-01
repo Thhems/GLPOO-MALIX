@@ -11,10 +11,10 @@ class Event(Base):
 
     name = Column(String(50), nullable=False)
     date = Column(String(50), nullable=False)
-    places = Column(Float(50), nullable=False)
+    places = Column(Float(), nullable=False)
 
     def __repr__(self):
-        return "<Event (%s %s %f)>" % (self.name, self.date, self.places)
+        return "<Event (%s %s %s)>" % (self.name, self.date, self.places)
 
     def to_dict(self):
         return {
