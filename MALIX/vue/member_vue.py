@@ -1,5 +1,8 @@
 from vue.common import Common
 from exceptions import ResourceNotFound, Error, InvalidData
+from vue.event_vue import EventVue
+from controller.event_controller import EventController
+
 
 
 class MemberVue:
@@ -139,7 +142,7 @@ class MemberVue:
                     member = self.connexion_member(user_type)
                     self.show_member(member)
                     commands_connecte = {
-                        "Inscription": "S'inscrir à un event",
+                        "inscription": "S'inscrir à un event",
                         "deconnexion": "déconnectez-vous",
                         "help": "Montrer l'aide"
                     }
@@ -147,9 +150,8 @@ class MemberVue:
                     while True:
                         try:
                             command = self.ask_command(commands_connecte)
-                            if command == 'Inscription':
+                            if command == 'inscription':
                                 print("A quel évenement voulez-vous vous incrire?")
-
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':
