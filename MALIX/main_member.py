@@ -1,8 +1,8 @@
 
 from model.database import DatabaseEngine
 from controller.member_controller import MemberController
-from vue.admin_vue import AdminVue
 from exceptions import Error
+from vue.member_vue import MemberVue
 
 
 def main():
@@ -12,13 +12,13 @@ def main():
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
     database_engine.create_database()
     member_controller = MemberController(database_engine)
-    admin_vue = AdminVue(member_controller).member_shell()
+    member_vue = MemberVue(member_controller).member_shell()
 
     try:
-        member = admin_vue.add_member("customer") #add_member = question crea compte
-        admin_vue.show_member(member)
+        member = member_vue.add_member("customer") #add_member = question crea compte
+        member_vue.show_member(member)
     except Error as e:
-        admin_vue.error_message(str(e))
+        member_vue.error_message(str(e))
 
 
 if __name__ == "__main__":
