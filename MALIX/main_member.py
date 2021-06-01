@@ -6,7 +6,7 @@ from exceptions import Error
 
 
 def main():
-    print("Welcome to the Shop")
+    print("Bienvenue sur Malix")
 
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')
