@@ -56,7 +56,7 @@ class AdminVue(MemberVue, EventVue):
                     break
                 elif command == 'addclient':
                     user_type = 'unknown'
-                    member = self.add_member(user_type)
+                    member = self.create_member(user_type)
                     self.show_member(member)
                 elif command == 'listclient':
                     self.show_members()

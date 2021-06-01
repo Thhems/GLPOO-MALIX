@@ -1,14 +1,15 @@
 from vue.common import Common
 from exceptions import ResourceNotFound, Error, InvalidData
+from vue.event_vue import EventVue
 
 
-class MemberVue:
+class MemberVue(EventVue):
     """
     Member Vue
     Members interface features
     """
-
-    def __init__(self, member_controller):
+    def __init__(self, member_controller, event_controller):
+        EventVue.__init__(self, event_controller)
         self._common = Common()
         self._member_controller = member_controller
 
@@ -118,6 +119,7 @@ class MemberVue:
             "exit": "Partir du Shell Shell",
             "creer": "Creer un compte",
             "connexion": "Connectez-vous",
+            "event": "Afficher les évènements",
             "help": "Afficher cette aide"
         }
 
@@ -139,7 +141,7 @@ class MemberVue:
                     member = self.connexion_member(user_type)
                     self.show_member(member)
                     commands_connecte = {
-                        "Inscription": "S'inscrir à un event",
+                        "inscription": "S'inscrire à un évènement",
                         "deconnexion": "déconnectez-vous",
                         "help": "Montrer l'aide"
                     }
@@ -147,14 +149,15 @@ class MemberVue:
                     while True:
                         try:
                             command = self.ask_command(commands_connecte)
-                            if command == 'Inscription':
-                                print("A quel évenement voulez-vous vous incrire?")
+                            if command == 'inscription':
+                                print("A quel évènement voulez-vous vous incrire?")
+                                self.show_events()
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':
                                 self.help_member(commands_connecte)
                             else:
-                                print("Unknown command")
+                                print("Commande inconnue")
                         except ResourceNotFound:
                             self.error_message("Member not found")
                         except InvalidData as e:
@@ -162,7 +165,8 @@ class MemberVue:
                         except Error as e:
                             self.error_message("An error occurred (%s)" % str(e))
                     self.help_member(commands)
-
+                elif command == 'event':
+                    self.show_events()
                 elif command == 'help':
                     self.help_member(commands)
                 else:
