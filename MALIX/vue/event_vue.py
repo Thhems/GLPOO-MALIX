@@ -40,9 +40,7 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s" % (      event['name'].capitalize(),
-                                            event['date'],
-                                            event['places']))
+            print("* %s (%s) - %s" % (event['name'], event['date'], event['places']))
 
     def search_event(self):
         name = self._common.ask_name('name')
@@ -58,6 +56,16 @@ class EventVue:
         data['date'] = self._common.ask_date()
         data['places'] = self._common.ask_places()
         print()
+        return self._event_controller.update_event(event['id'], data)
+
+    def resa_event(self, nom, nb):
+        event = self._event_controller.search_event(nom)
+        data = {}
+        print("Mise à jour de l'évènement")
+        data['name'] = event['name']
+        data['date'] = event['date']
+        data['places'] = float(event['places']) - float(nb)
+        print("Vous avez réservé "+str(nb)+" places pour "+event['name'])
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):
