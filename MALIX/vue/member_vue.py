@@ -1,6 +1,7 @@
 from vue.common import Common
 from exceptions import ResourceNotFound, Error, InvalidData
 from vue.event_vue import EventVue
+from vue.liste_vue import ListVue
 
 
 class MemberVue(EventVue):
@@ -8,10 +9,12 @@ class MemberVue(EventVue):
     Member Vue
     Members interface features
     """
-    def __init__(self, member_controller, event_controller):
+    def __init__(self, member_controller, event_controller, list_controller):
         EventVue.__init__(self, event_controller)
+        # ListVue.__init__(self, list_controller)
         self._common = Common()
         self._member_controller = member_controller
+        self._list_controller = list_controller
 
     def add_member(self, user_type):
         # Show subscription formular
@@ -22,7 +25,6 @@ class MemberVue(EventVue):
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
-        
 
         if user_type != 'customer':
             data['type'] = self._common.ask_type()
@@ -43,21 +45,17 @@ class MemberVue(EventVue):
     def create_member(self, user_type):
         # Show subscription formular
         data = {}
-        print("Store user Subscription")
-        print(user_type)
-        print()
+        print("Inscription d'un client :")
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
         data['type'] = 'customer'
-        print(data)
         return self._member_controller.create_member(data)
 
     def show_member(self, member: dict):
         print("Profile du client: ")
         print(member['firstname'].capitalize(), member['lastname'].capitalize())
         print("email:", member['email'])
-        print("type:", member['type'])
 
     def error_message(self, message: str):
         print("/!\\ %s" % message.upper())
@@ -71,10 +69,9 @@ class MemberVue(EventVue):
 
         print("Clients: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (member['firstname'].capitalize(),
+            print("* %s %s (%s)" % (member['firstname'].capitalize(),
                                          member['lastname'].capitalize(),
-                                         member['email'],
-                                         member['type']))
+                                         member['email']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -114,7 +111,7 @@ class MemberVue(EventVue):
 
         return command
 
-    def ask_resa(self):
+    def ask_resa(self, membre):
         print("A quel évènement voulez-vous vous incrire?")
         self.show_events()
         events = self._event_controller.list_events()
@@ -127,11 +124,17 @@ class MemberVue(EventVue):
             if good == 0:
                 print("Cet evenement n'existe pas")
                 nom = input('Nom de l évènement > ')
-
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
 
+        data = {}
+        data['firstname'] = nom
+        data['lastname'] = membre['lastname']
+        data['email'] = membre['email']
+        data['nb'] = nb
+        data['type'] = 'customer'
+        self._list_controller.create_list(data)
         self.resa_event(nom, nb)
 
     def member_shell(self):
@@ -143,7 +146,6 @@ class MemberVue(EventVue):
             "event": "Afficher les évènements",
             "help": "Afficher cette aide"
         }
-
 
         self.help_member(commands)
 
@@ -171,7 +173,7 @@ class MemberVue(EventVue):
                         try:
                             command = self.ask_command(commands_connecte)
                             if command == 'inscription':
-                                self.ask_resa()
+                                self.ask_resa(member)
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

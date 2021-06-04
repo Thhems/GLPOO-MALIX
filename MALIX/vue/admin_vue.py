@@ -2,18 +2,21 @@
 import sys
 from vue.member_vue import MemberVue
 from vue.event_vue import EventVue
+from vue.liste_vue import ListVue
 from exceptions import ResourceNotFound, Error, InvalidData
 
 
-class AdminVue(MemberVue, EventVue):
+class AdminVue(MemberVue, EventVue, ListVue):
     """
     Admin Vue
     Admin specific interfaces
     """
 
-    def __init__(self, member_controller, event_controller):
-        MemberVue.__init__(self, member_controller, event_controller)
+    def __init__(self, member_controller, event_controller, list_controller):
+        MemberVue.__init__(self, member_controller, event_controller, list_controller)
         EventVue.__init__(self, event_controller)
+        ListVue.__init__(self, member_controller, list_controller)
+        # self._list_controller = list_controller
 
     def help(self, commands):
         print()
@@ -44,6 +47,7 @@ class AdminVue(MemberVue, EventVue):
             "event": "Afficher un évènement",
             "deletevent": "Supprimer un évènement",
             "majevent": "Mettre à jour un évènement",
+            "list": "Lister les peronnes inscrites",
             "help": "Afficher l'aide"
         }
 
@@ -81,6 +85,8 @@ class AdminVue(MemberVue, EventVue):
                 elif command == 'majevent':
                     event = self.update_event()
                     self.show_event(event)
+                elif command == 'list':
+                    self.show_lists()
                 elif command == 'help':
                     self.help(commands)
                 else:
