@@ -61,6 +61,14 @@ class MemberVue(EventVue):
         print(data)
         return self._member_controller.create_member(data)
 
+    def create_list(self, artiste, nom, mail):
+        data = {}
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
+        data['type'] = 'customer'
+        return self._list_controller.create_list(data)
+
     def show_member(self, member: dict):
         print("Profile du client: ")
         print(member['firstname'].capitalize(), member['lastname'].capitalize())
@@ -83,6 +91,14 @@ class MemberVue(EventVue):
                                          member['lastname'].capitalize(),
                                          member['email'],
                                          member['type']))
+
+    def show_inscription(self):
+
+        members = self._list_controller.list_members()
+
+        print("Inscrits: ")
+        for member in members:
+            print("* %s | %s (%s)" % (member['firstname'].capitalize(), member['lastname'].capitalize(), member['email']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -122,7 +138,7 @@ class MemberVue(EventVue):
 
         return command
 
-    def ask_resa(self):
+    def ask_resa(self, membre):
         print("A quel évènement voulez-vous vous incrire?")
         self.show_events()
         events = self._event_controller.list_events()
@@ -138,8 +154,9 @@ class MemberVue(EventVue):
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
-
-        self.resa_event(nom, nb, self._list_controller)
+        for i in range(0, 1, int(nb)):
+            self.create_list(nom, membre['firstname'], membre['email'])
+        self.resa_event(nom, nb)
 
     def member_shell(self):
 
@@ -178,7 +195,7 @@ class MemberVue(EventVue):
                         try:
                             command = self.ask_command(commands_connecte)
                             if command == 'inscription':
-                                self.ask_resa()
+                                self.ask_resa(member)
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

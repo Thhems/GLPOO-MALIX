@@ -38,6 +38,19 @@ class MemberController:
             # log error
             raise e
 
+    def create_list(self, data):
+
+        self._check_profile_data(data)
+        try:
+            with self._database_engine.new_session() as session:
+                # Save member in database
+                member = MemberDAO(session).create(data)
+                member_data = member.to_dict()
+                return member_data
+        except Error as e:
+            # log error
+            raise e
+
     def update_member(self, member_id, member_data):
 
         self._check_profile_data(member_data, update=True)
