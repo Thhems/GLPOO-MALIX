@@ -45,7 +45,7 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s places - %s - %s euros" % (event['name'], event['date'], event['places'], event['lieu', event['prix']]))
+            print("* %s (%s) - %s places - %s - %s euros" % (event['name'], event['date'], event['places'], event['lieu'], event['prix']))
 
     def search_event(self):
         name = self._common.ask_name('name')
