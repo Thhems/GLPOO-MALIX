@@ -30,7 +30,7 @@ class MemberController:
         self._check_profile_data(data)
         try:
             with self._database_engine.new_session() as session:
-                # Save member in database
+                # Save user in database
                 member = MemberDAO(session).create(data)
                 member_data = member.to_dict()
                 return member_data

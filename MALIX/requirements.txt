@@ -1,1 +1,2 @@
-sqlalchemy
+sqlalchemy~=1.4.17
+PySide6~=6.1.0
