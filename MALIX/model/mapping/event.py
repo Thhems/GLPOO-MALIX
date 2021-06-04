@@ -21,5 +21,5 @@ class Event(Base):
             "id": self.id,
             "name": self.name,
             "date": self.date,
-            "places": self.places
+            "places": self.places,
         }

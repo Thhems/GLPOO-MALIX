@@ -19,6 +19,7 @@ class EventVue:
         data['name'] = self._common.ask_name(key_name="name")
         data['date'] = self._common.ask_date()
         data['places'] = self._common.ask_places()
+        
 
         return self._event_controller.create_event(data)
 
@@ -27,6 +28,7 @@ class EventVue:
         print(event['name'].capitalize())
         print("date:", event['date'])
         print("Nombre de places:", event['places'])
+        
 
     def error_message(self, message: str):
         print("/!\\ %s" % message.upper())
@@ -40,7 +42,7 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s" % (event['name'], event['date'], event['places']))
+            print("* %s (%s) - %s places " % (event['name'], event['date'], event['places']))
 
     def search_event(self):
         name = self._common.ask_name('name')
