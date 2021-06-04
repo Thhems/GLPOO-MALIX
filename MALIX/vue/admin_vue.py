@@ -12,7 +12,7 @@ class AdminVue(MemberVue, EventVue):
     """
 
     def __init__(self, member_controller, event_controller):
-        MemberVue.__init__(self, member_controller)
+        MemberVue.__init__(self, member_controller, event_controller)
         EventVue.__init__(self, event_controller)
 
     def help(self, commands):

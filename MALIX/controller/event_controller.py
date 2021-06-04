@@ -68,6 +68,8 @@ class EventController:
             'name': {"type": str, "regex": name_pattern},
             'date': {"type": str},
             'places': {"type": float},
+            'lieu': {"type": str},
+            'prix': {"type": float},
         }
         for mandatory, specs in mandatories.items():
             if not update:

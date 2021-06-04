@@ -22,6 +22,7 @@ class MemberVue(EventVue):
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
+        
 
         if user_type != 'customer':
             data['type'] = self._common.ask_type()

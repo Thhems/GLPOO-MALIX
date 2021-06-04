@@ -19,6 +19,8 @@ class EventVue:
         data['name'] = self._common.ask_name(key_name="name")
         data['date'] = self._common.ask_date()
         data['places'] = self._common.ask_places()
+        data['lieu'] = self._common.ask_lieu()
+        data['prix'] = self._common.ask_prix()
         
 
         return self._event_controller.create_event(data)
@@ -28,7 +30,8 @@ class EventVue:
         print(event['name'].capitalize())
         print("date:", event['date'])
         print("Nombre de places:", event['places'])
-        
+        print("Lieu: ", event['lieu'])
+        print("Prix: ", event['prix'])
 
     def error_message(self, message: str):
         print("/!\\ %s" % message.upper())
@@ -42,7 +45,7 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s places " % (event['name'], event['date'], event['places']))
+            print("* %s (%s) - %s places - %s - %s euros" % (event['name'], event['date'], event['places'], event['lieu', event['prix']]))
 
     def search_event(self):
         name = self._common.ask_name('name')
@@ -57,6 +60,8 @@ class EventVue:
         data['name'] = self._common.ask_name(key_name="name", default=event['name'])
         data['date'] = self._common.ask_date()
         data['places'] = self._common.ask_places()
+        data['lieu'] = self._common.ask_lieu()
+        data['prix'] = self._common.ask_prix()
         print()
         return self._event_controller.update_event(event['id'], data)
 
@@ -67,7 +72,9 @@ class EventVue:
         data['name'] = event['name']
         data['date'] = event['date']
         data['places'] = float(event['places']) - float(nb)
-        print("Vous avez réservé "+str(nb)+" places pour "+event['name'])
+        data['lieu'] = event['lieu']
+        data['prix'] = event['prix']
+        print("Vous avez réservé "+str(nb)+" places pour "+event['name']+" pour "+ event['prix']*nb+" à "+event['lieu'])
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):

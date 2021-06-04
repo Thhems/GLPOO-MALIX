@@ -36,7 +36,7 @@ class EventDAO(DAO):
 
     def create(self, data: dict):
         try:
-            event = Event(name=data.get('name'), date=data.get('date'), places=data.get('places'))
+            event = Event(name=data.get('name'), date=data.get('date'), places=data.get('places'), lieu=data.get('lieu'), prix=data.get('prix'))
             self._database_session.add(event)
             self._database_session.flush()
         except IntegrityError:
@@ -50,6 +50,10 @@ class EventDAO(DAO):
             event.date = data['date']
         if 'places' in data:
             event.places = data['places']
+        if 'lieu' in data:
+            event.places = data['lieu']
+        if 'prix' in data:
+            event.places = data['prix']
         try:
             self._database_session.merge(event)
             self._database_session.flush()
