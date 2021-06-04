@@ -21,7 +21,6 @@ class EventVue:
         data['places'] = self._common.ask_places()
         data['lieu'] = self._common.ask_lieu()
         data['prix'] = self._common.ask_prix()
-        
 
         return self._event_controller.create_event(data)
 
@@ -45,7 +44,11 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s places - %s - %s euros" % (event['name'], event['date'], event['places'], event['lieu'], event['prix']))
+            print("* %s (%s) - %s places - %s - %s euros" % (event['name'],
+                                                             event['date'],
+                                                             event['places'],
+                                                             event['lieu'],
+                                                             event['prix']))
 
     def search_event(self):
         name = self._common.ask_name('name')
@@ -74,7 +77,8 @@ class EventVue:
         data['places'] = float(event['places']) - float(nb)
         data['lieu'] = event['lieu']
         data['prix'] = event['prix']
-        print("Vous avez réservé "+str(nb)+" places pour "+event['name']+" pour "+ event['prix']*nb+" à "+event['lieu'])
+        print("Vous avez réservé "+str(nb)+" places pour "+event['name']
+              + " pour " + event['prix']*nb+" à "+event['lieu'])
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):

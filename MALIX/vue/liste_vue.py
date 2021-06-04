@@ -1,63 +1,40 @@
 from vue.common import Common
 from exceptions import ResourceNotFound, Error, InvalidData
 from vue.event_vue import EventVue
-from vue.liste_vue import ListVue
 
 
-class MemberVue(EventVue):
+class ListVue(EventVue):
     """
-    Member Vue
-    Members interface features
+    List Vue
+    Lists interface features
     """
+
     def __init__(self, member_controller, event_controller, list_controller):
         EventVue.__init__(self, event_controller)
-        # ListVue.__init__(self, list_controller)
         self._common = Common()
         self._member_controller = member_controller
         self._list_controller = list_controller
 
-    def add_member(self, user_type):
-        # Show subscription formular
+    def add_list(self, artiste, nom, mail):
         data = {}
-        print("Inscription du client")
-        # print(user_type)
-        print()
-        data['firstname'] = self._common.ask_name(key_name="firstname")
-        data['lastname'] = self._common.ask_name(key_name="lastname")
-        data['email'] = self._common.ask_email()
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
 
-        if user_type != 'customer':
-            data['type'] = self._common.ask_type()
-        else:
-            data['type'] = user_type
-        print('data', data)
-        return self._member_controller.add_member(data)
+        return self._list_controller.add_list(data)
 
-    def connexion_member(self, user_type):
-        # Show subscription formular
+    def create_list(self, artiste, nom, mail):
         data = {}
-        print("Connexion")
-        email = self._common.ask_name('email')
-        lastname = self._common.ask_name('lastname')
-        member = self._member_controller.search_member_email(email, lastname)
-        return member
-
-    def create_member(self, user_type):
-        # Show subscription formular
-        data = {}
-        print("Store user Subscription")
-        print(user_type)
-        print()
-        data['firstname'] = self._common.ask_name(key_name="firstname")
-        data['lastname'] = self._common.ask_name(key_name="lastname")
-        data['email'] = self._common.ask_email()
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
         data['type'] = 'customer'
-        print(data)
-        return self._member_controller.create_member(data)
+        return self._list_controller.create_list(data)
 
-    def show_member(self, member: dict):
-        print("Profile du client: ")
-        print(member['firstname'].capitalize(), member['lastname'].capitalize())
+    def show_list(self, member: dict):
+        print("Profile de l'inscrit: ")
+        print("Event :"+member['firstname'].capitalize())
+        print(member['lastname'].capitalize())
         print("email:", member['email'])
         print("type:", member['type'])
 
@@ -67,16 +44,25 @@ class MemberVue(EventVue):
     def succes_message(self, message: str = ""):
         print("Operation succeeded: %s" % message)
 
-    def show_members(self):
+    def show_lists(self):
 
         members = self._member_controller.list_members()
 
         print("Clients: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (member['firstname'].capitalize(),
+            print("* %s || %s (%s) - %s" % (member['firstname'].capitalize(),
                                          member['lastname'].capitalize(),
                                          member['email'],
                                          member['type']))
+
+    def show_inscription(self):
+
+        members = self._list_controller.list_members()
+
+        print("Inscrits: ")
+        for member in members:
+            print(
+                "* %s | %s (%s)" % (member['firstname'].capitalize(), member['lastname'].capitalize(), member['email']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -87,7 +73,7 @@ class MemberVue(EventVue):
     def update_member(self):
         member = self.search_member()
         data = {}
-        print("Update client")
+        print("Update réservation")
         print()
         data['firstname'] = self._common.ask_name(key_name="firstname", default=member['firstname'])
         data['lastname'] = self._common.ask_name(key_name="lastname", default=member['lastname'])
@@ -133,7 +119,7 @@ class MemberVue(EventVue):
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
         for i in range(0, int(nb)):
-            self._list_controller.add_list(nom, membre['firstname'], membre['email'])
+            self.create_list(nom, membre['firstname'], membre['email'])
         self.resa_event(nom, nb)
 
     def member_shell(self):
