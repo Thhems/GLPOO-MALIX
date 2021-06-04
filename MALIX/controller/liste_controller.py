@@ -1,10 +1,10 @@
 import re
 
-from model.dao.member_dao import MemberDAO
+from model.dao.liste_dao import ListDAO
 from exceptions import Error, InvalidData
 
 
-class MemberController:
+class ListController:
     """
     Member actions
     """
@@ -13,25 +13,25 @@ class MemberController:
         self._database_engine = database_engine
         self._frames = []
 
-    def list_members(self):
+    def list(self):
         with self._database_engine.new_session() as session:
-            members = MemberDAO(session).get_all()
+            members = ListDAO(session).get_all()
             members_data = [member.to_dict() for member in members]
         return members_data
 
-    def get_member(self, member_id):
+    def get_list(self, member_id):
         with self._database_engine.new_session() as session:
-            member = MemberDAO(session).get(member_id)
+            member = ListDAO(session).get(member_id)
             member_data = member.to_dict()
         return member_data
 
-    def create_member(self, data):
+    def create_list(self, data):
 
         self._check_profile_data(data)
         try:
             with self._database_engine.new_session() as session:
                 # Save member in database
-                member = MemberDAO(session).create(data)
+                member = ListDAO(session).create(data)
                 member_data = member.to_dict()
                 return member_data
         except Error as e:
@@ -42,7 +42,7 @@ class MemberController:
 
         self._check_profile_data(member_data, update=True)
         with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
+            member_dao = ListDAO(session)
             member = member_dao.get(member_id)
             member = member_dao.update(member, member_data)
             return member.to_dict()
@@ -50,7 +50,7 @@ class MemberController:
     def delete_member(self, member_id):
 
         with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
+            member_dao = ListDAO(session)
             member = member_dao.get(member_id)
             member_dao.delete(member)
 
@@ -58,7 +58,7 @@ class MemberController:
 
         # Query database
         with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
+            member_dao = ListDAO(session)
             member = member_dao.get_by_name(firstname, lastname)
             return member.to_dict()
 
@@ -66,7 +66,7 @@ class MemberController:
 
         # Query database
         with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
+            member_dao = ListDAO(session)
             member = member_dao.get_by_email(email, lastname)
             return member.to_dict()
 

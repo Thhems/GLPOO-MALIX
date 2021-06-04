@@ -2,6 +2,7 @@
 import sys
 from vue.member_vue import MemberVue
 from vue.event_vue import EventVue
+from vue.liste_vue import ListVue
 from exceptions import ResourceNotFound, Error, InvalidData
 
 
