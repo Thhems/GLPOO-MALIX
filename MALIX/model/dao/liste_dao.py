@@ -42,13 +42,11 @@ class ListDAO(DAO):
             raise ResourceNotFound()
 
     def createlist(self, data: dict):
-        try:
-            member = List(firstname=data.get('firstname'), lastname=data.get('lastname'), email=data.get('email'),
-                          nb=data.get('nb'), type=data.get('type'))
-            self._database_session.add(member)
-            self._database_session.flush()
-        except IntegrityError:
-            raise Error("Vous avez déjà été inscrit")
+        member = List(firstname=data.get('firstname'), lastname=data.get('lastname'), email=data.get('email'),
+                      nb=data.get('nb'), type=data.get('type'))
+        self._database_session.add(member)
+        self._database_session.flush()
+        
         return member
 
     def update(self, member: List, data: dict):

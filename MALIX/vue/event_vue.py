@@ -72,12 +72,13 @@ class EventVue:
         event = self._event_controller.search_event(nom)
         data = {}
         print("Mise à jour de l'évènement")
+        event['places'] -= nb
         data['name'] = event['name']
         data['date'] = event['date']
-        data['places'] = float(event['places']) - float(nb)
+        data['places'] = event['places']
         data['lieu'] = event['lieu']
         data['prix'] = event['prix']
-        print("Vous avez réservé "+str(nb)+" places pour "+event['name'] + " pour " + str(event['prix']*nb)+" à "+event['lieu'])
+        print("Vous avez réservé "+str(nb)+" places pour "+event['name'] + " pour " + str(event['prix']*nb)+" à "+event['lieu'] + " il reste "+ str(event['places']))
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):
