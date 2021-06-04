@@ -1,6 +1,7 @@
 
 from controller.member_controller import MemberController
 from controller.event_controller import EventController
+from controller.liste_controller import ListController
 from model.database import DatabaseEngine
 from vue.admin_vue import AdminVue
 
@@ -15,9 +16,9 @@ def main():
     database_event.create_database()
     database_resa = DatabaseEngine(url='sqlite:///shop.db')
     database_resa.create_database()
-    resa_controller = MemberController(database_resa)
     admin_controller = MemberController(database_engine)
     event_controller = EventController(database_event)
+    resa_controller = ListController(database_resa)
     AdminVue(admin_controller, event_controller, resa_controller).admin_shell()
 
 

@@ -13,26 +13,26 @@ class ListController:
         self._database_engine = database_engine
         self._frames = []
 
-    def list(self):
+    def listall(self):
         with self._database_engine.new_session() as session:
             members = ListDAO(session).get_all()
-            members_data = [member.to_dict() for member in members]
+            members_data = [member.to_dictliste() for member in members]
         return members_data
 
     def get_list(self, member_id):
         with self._database_engine.new_session() as session:
             member = ListDAO(session).get(member_id)
-            member_data = member.to_dict()
+            member_data = member.to_dictliste()
         return member_data
 
     def create_list(self, data):
 
-        self._check_profile_data(data)
+        # self._check_profile_data(data)
         try:
             with self._database_engine.new_session() as session:
                 # Save member in database
-                member = ListDAO(session).create(data)
-                member_data = member.to_dict()
+                member = ListDAO(session).createlist(data)
+                member_data = member.to_dictliste()
                 return member_data
         except Error as e:
             # log error
@@ -45,7 +45,7 @@ class ListController:
             member_dao = ListDAO(session)
             member = member_dao.get(member_id)
             member = member_dao.update(member, member_data)
-            return member.to_dict()
+            return member.to_dictliste()
 
     def delete_member(self, member_id):
 
@@ -78,6 +78,7 @@ class ListController:
             'firstname': {"type": str, "regex": name_pattern},
             'lastname': {"type": str, "regex": name_pattern},
             'email': {"type": str, "regex": email_pattern},
+            'nb': {"type": float},
             'type': {"type": str, "regex": type_pattern}
         }
         for mandatory, specs in mandatories.items():

@@ -6,7 +6,7 @@ from vue.liste_vue import ListVue
 from exceptions import ResourceNotFound, Error, InvalidData
 
 
-class AdminVue(MemberVue, EventVue):
+class AdminVue(MemberVue, EventVue, ListVue):
     """
     Admin Vue
     Admin specific interfaces
@@ -15,6 +15,8 @@ class AdminVue(MemberVue, EventVue):
     def __init__(self, member_controller, event_controller, list_controller):
         MemberVue.__init__(self, member_controller, event_controller, list_controller)
         EventVue.__init__(self, event_controller)
+        ListVue.__init__(self, member_controller, list_controller)
+        # self._list_controller = list_controller
 
     def help(self, commands):
         print()
@@ -84,7 +86,7 @@ class AdminVue(MemberVue, EventVue):
                     event = self.update_event()
                     self.show_event(event)
                 elif command == 'list':
-                    self.show_inscription()
+                    self.show_lists()
                 elif command == 'help':
                     self.help(commands)
                 else:

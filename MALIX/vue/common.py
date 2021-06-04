@@ -35,6 +35,9 @@ class Common:
 
     def ask_prix(self, default=None):
         return self.ask(key_name="prix", regex=None, default=default)
+
+    def ask_nb(self, default=None):
+        return self.ask(key_name="nb", regex=None, default=default)
         
     def ask_lieu(self, default=None):
         return self.ask(key_name="lieu", regex=None, default=default)
