@@ -58,7 +58,7 @@ class EventVue:
         print()
         return self._event_controller.update_event(event['id'], data)
 
-    def resa_event(self, nom, nb):
+    def resa_event(self, nom, nb, list):
         event = self._event_controller.search_event(nom)
         data = {}
         print("Mise à jour de l'évènement")
@@ -66,6 +66,7 @@ class EventVue:
         data['date'] = event['date']
         data['places'] = float(event['places']) - float(nb)
         print("Vous avez réservé "+str(nb)+" places pour "+event['name'])
+        list.add_list()
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):

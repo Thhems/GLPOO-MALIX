@@ -8,10 +8,11 @@ class MemberVue(EventVue):
     Member Vue
     Members interface features
     """
-    def __init__(self, member_controller, event_controller):
+    def __init__(self, member_controller, event_controller, list_controller):
         EventVue.__init__(self, event_controller)
         self._common = Common()
         self._member_controller = member_controller
+        self._list_controller = list_controller
 
     def add_member(self, user_type):
         # Show subscription formular
@@ -29,6 +30,14 @@ class MemberVue(EventVue):
             data['type'] = user_type
         print('data', data)
         return self._member_controller.add_member(data)
+
+    def add_list(self, artiste, nom, mail):
+        data = {}
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
+
+        return self._list_controller.add_member(data)
 
     def connexion_member(self, user_type):
         # Show subscription formular
@@ -126,12 +135,11 @@ class MemberVue(EventVue):
             if good == 0:
                 print("Cet evenement n'existe pas")
                 nom = input('Nom de l évènement > ')
-
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
 
-        self.resa_event(nom, nb)
+        self.resa_event(nom, nb, self._list_controller)
 
     def member_shell(self):
 
