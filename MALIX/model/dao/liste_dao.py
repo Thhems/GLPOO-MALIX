@@ -41,13 +41,14 @@ class ListDAO(DAO):
         except NoResultFound:
             raise ResourceNotFound()
 
-    def create(self, data: dict):
+    def createlist(self, data: dict):
         try:
-            member = List(firstname=data.get('firstname'), lastname=data.get('lastname'), email=data.get('email'), type=data.get('type'))
+            member = List(firstname=data.get('firstname'), lastname=data.get('lastname'), email=data.get('email'),
+                          nb=data.get('nb'), type=data.get('type'))
             self._database_session.add(member)
             self._database_session.flush()
         except IntegrityError:
-            raise Error("Member already exists")
+            raise Error("Vous avez déjà été inscrit")
         return member
 
     def update(self, member: List, data: dict):
@@ -57,6 +58,8 @@ class ListDAO(DAO):
             member.lastname = data['lastname']
         if 'email' in data:
             member.email = data['email']
+        if 'nb' in data:
+            member.nb = data['nb']
         if 'type' in data:
             member.type = data['type']
         try:

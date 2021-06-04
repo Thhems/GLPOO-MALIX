@@ -45,21 +45,17 @@ class MemberVue(EventVue):
     def create_member(self, user_type):
         # Show subscription formular
         data = {}
-        print("Store user Subscription")
-        print(user_type)
-        print()
+        print("Inscription d'un client :")
         data['firstname'] = self._common.ask_name(key_name="firstname")
         data['lastname'] = self._common.ask_name(key_name="lastname")
         data['email'] = self._common.ask_email()
         data['type'] = 'customer'
-        print(data)
         return self._member_controller.create_member(data)
 
     def show_member(self, member: dict):
         print("Profile du client: ")
         print(member['firstname'].capitalize(), member['lastname'].capitalize())
         print("email:", member['email'])
-        print("type:", member['type'])
 
     def error_message(self, message: str):
         print("/!\\ %s" % message.upper())
@@ -73,10 +69,9 @@ class MemberVue(EventVue):
 
         print("Clients: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (member['firstname'].capitalize(),
+            print("* %s %s (%s)" % (member['firstname'].capitalize(),
                                          member['lastname'].capitalize(),
-                                         member['email'],
-                                         member['type']))
+                                         member['email']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -132,8 +127,14 @@ class MemberVue(EventVue):
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
-        for i in range(0, int(nb)):
-            self._list_controller.add_list(nom, membre['firstname'], membre['email'])
+
+        data = {}
+        data['firstname'] = nom
+        data['lastname'] = membre['lastname']
+        data['email'] = membre['email']
+        data['nb'] = nb
+        data['type'] = 'customer'
+        self._list_controller.create_list(data)
         self.resa_event(nom, nb)
 
     def member_shell(self):

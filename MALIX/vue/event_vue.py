@@ -77,8 +77,7 @@ class EventVue:
         data['places'] = float(event['places']) - float(nb)
         data['lieu'] = event['lieu']
         data['prix'] = event['prix']
-        print("Vous avez réservé "+str(nb)+" places pour "+event['name']
-              + " pour " + event['prix']*nb+" à "+event['lieu'])
+        print("Vous avez réservé "+str(nb)+" places pour "+event['name'] + " pour " + str(event['prix']*nb)+" à "+event['lieu'])
         return self._event_controller.update_event(event['id'], data)
 
     def delete_event(self):
