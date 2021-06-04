@@ -11,8 +11,8 @@ class AdminVue(MemberVue, EventVue):
     Admin specific interfaces
     """
 
-    def __init__(self, member_controller, event_controller):
-        MemberVue.__init__(self, member_controller, event_controller)
+    def __init__(self, member_controller, event_controller, list_controller):
+        MemberVue.__init__(self, member_controller, event_controller, list_controller)
         EventVue.__init__(self, event_controller)
 
     def help(self, commands):
@@ -44,6 +44,7 @@ class AdminVue(MemberVue, EventVue):
             "event": "Afficher un évènement",
             "deletevent": "Supprimer un évènement",
             "majevent": "Mettre à jour un évènement",
+            "list": "Lister les peronnes inscrites",
             "help": "Afficher l'aide"
         }
 
@@ -81,6 +82,8 @@ class AdminVue(MemberVue, EventVue):
                 elif command == 'majevent':
                     event = self.update_event()
                     self.show_event(event)
+                elif command == 'list':
+                    self.show_inscription()
                 elif command == 'help':
                     self.help(commands)
                 else:

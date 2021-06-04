@@ -8,10 +8,11 @@ class MemberVue(EventVue):
     Member Vue
     Members interface features
     """
-    def __init__(self, member_controller, event_controller):
+    def __init__(self, member_controller, event_controller, list_controller):
         EventVue.__init__(self, event_controller)
         self._common = Common()
         self._member_controller = member_controller
+        self._list_controller = list_controller
 
     def add_member(self, user_type):
         # Show subscription formular
@@ -30,6 +31,14 @@ class MemberVue(EventVue):
             data['type'] = user_type
         print('data', data)
         return self._member_controller.add_member(data)
+
+    def add_list(self, artiste, nom, mail):
+        data = {}
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
+
+        return self._list_controller.add_member(data)
 
     def connexion_member(self, user_type):
         # Show subscription formular
@@ -53,6 +62,14 @@ class MemberVue(EventVue):
         print(data)
         return self._member_controller.create_member(data)
 
+    def create_list(self, artiste, nom, mail):
+        data = {}
+        data['firstname'] = artiste
+        data['lastname'] = nom
+        data['email'] = mail
+        data['type'] = 'customer'
+        return self._list_controller.create_list(data)
+
     def show_member(self, member: dict):
         print("Profile du client: ")
         print(member['firstname'].capitalize(), member['lastname'].capitalize())
@@ -75,6 +92,14 @@ class MemberVue(EventVue):
                                          member['lastname'].capitalize(),
                                          member['email'],
                                          member['type']))
+
+    def show_inscription(self):
+
+        members = self._list_controller.list_members()
+
+        print("Inscrits: ")
+        for member in members:
+            print("* %s | %s (%s)" % (member['firstname'].capitalize(), member['lastname'].capitalize(), member['email']))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -114,7 +139,7 @@ class MemberVue(EventVue):
 
         return command
 
-    def ask_resa(self):
+    def ask_resa(self, membre):
         print("A quel évènement voulez-vous vous incrire?")
         self.show_events()
         events = self._event_controller.list_events()
@@ -127,11 +152,11 @@ class MemberVue(EventVue):
             if good == 0:
                 print("Cet evenement n'existe pas")
                 nom = input('Nom de l évènement > ')
-
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
-
+        for i in range(0, 1, int(nb)):
+            self.create_list(nom, membre['firstname'], membre['email'])
         self.resa_event(nom, nb)
 
     def member_shell(self):
@@ -171,7 +196,7 @@ class MemberVue(EventVue):
                         try:
                             command = self.ask_command(commands_connecte)
                             if command == 'inscription':
-                                self.ask_resa()
+                                self.ask_resa(member)
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

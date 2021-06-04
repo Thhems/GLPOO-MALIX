@@ -67,9 +67,7 @@ class EventController:
         mandatories = {
             'name': {"type": str, "regex": name_pattern},
             'date': {"type": str},
-            'places': {"type": float},
-            'lieu': {"type": str},
-            'prix': {"type": float}
+            'places': {"type": float}
         }
         for mandatory, specs in mandatories.items():
             if not update:
@@ -79,9 +77,5 @@ class EventController:
                 if mandatory not in data:
                     continue
             value = data[mandatory]
-            
-            #if "type" in specs and not isinstance(value, specs["type"]):
-                #raise InvalidData("Invalid type %s" % mandatory)
-                
             if "regex" in specs and isinstance(value, str) and not re.match(specs["regex"], value):
                 raise InvalidData("Invalid value %s" % mandatory)

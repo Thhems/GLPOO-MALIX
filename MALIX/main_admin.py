@@ -13,9 +13,12 @@ def main():
     database_engine.create_database()
     database_event = DatabaseEngine(url='sqlite:///shop.db')
     database_event.create_database()
+    database_resa = DatabaseEngine(url='sqlite:///shop.db')
+    database_resa.create_database()
+    resa_controller = MemberController(database_resa)
     admin_controller = MemberController(database_engine)
     event_controller = EventController(database_event)
-    AdminVue(admin_controller, event_controller).admin_shell()
+    AdminVue(admin_controller, event_controller, resa_controller).admin_shell()
 
 
 if __name__ == "__main__":
