@@ -155,7 +155,7 @@ class MemberVue(EventVue):
         nb = float(input('Nombre de places > '))
         while nb < 1 or nb > 11:
             nb = float(input('Nombre de places > '))
-        for i in range(0, 1, int(nb)):
+        for i in range(0, int(nb)):
             self.create_list(nom, membre['firstname'], membre['email'])
         self.resa_event(nom, nb)
 
