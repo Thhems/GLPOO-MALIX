@@ -1,3 +1,4 @@
+from controller.liste_controller import ListController
 from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import ListUserQt
@@ -8,9 +9,10 @@ from controller.event_controller import EventController
 
 
 class MenuWindow(BasicWindow):
-    def __init__(self, member_controller: MemberController, event_controller: EventController):
+    def __init__(self, member_controller: MemberController, event_controller: EventController, resa_controller: ListController):
         self._event_controller = event_controller
         self._member_controller = member_controller
+        self._resa_controller = resa_controller
         super().__init__()
         self.listUserWindow = None
         self.listEventWindow = None
@@ -18,15 +20,15 @@ class MenuWindow(BasicWindow):
         self.setup()
 
     def setup(self):
-        btn_list = QPushButton('Liste des utilisateurs', self)
-        btn_list.resize(btn_list.sizeHint())
-        btn_list.move(0, 0)
-        btn_list.clicked.connect(self.list_user)
+        btn_listm = QPushButton('Liste des utilisateurs', self)
+        btn_listm.resize(btn_listm.sizeHint())
+        btn_listm.move(80, 100)
+        btn_listm.clicked.connect(self.list_user)
 
-        btn_list = QPushButton('Liste des events', self)
-        btn_list.resize(btn_list.sizeHint())
-        btn_list.move(100, 0)
-        btn_list.clicked.connect(self.list_event)
+        btn_liste = QPushButton('Liste des events', self)
+        btn_liste.resize(btn_liste.sizeHint())
+        btn_liste.move(0, 0)
+        btn_liste.clicked.connect(self.list_event)
 
         btn_quit = QPushButton('Quitter', self)
         btn_quit.clicked.connect(QApplication.instance().quit)
@@ -34,7 +36,8 @@ class MenuWindow(BasicWindow):
         btn_quit.move(90, 100)
 
         layout = QVBoxLayout()
-        layout.addWidget(btn_list)
+        layout.addWidget(btn_listm)
+        layout.addWidget(btn_liste)
         layout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 200, 150)

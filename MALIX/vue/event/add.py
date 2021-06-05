@@ -29,11 +29,11 @@ class AddEventQt(BasicWindow, EventController):
 
         Layout.addRow("date", self.last_name)
 
-        Layout.addRow("places", self.email)
+        Layout.addRow("places", self.places)
 
-        Layout.addRow("lieu", self.email)
+        Layout.addRow("lieu", self.lieu)
 
-        Layout.addRow("prix", self.email)
+        Layout.addRow("prix", self.prix)
 
 
         # Create a layout for the checkboxes
