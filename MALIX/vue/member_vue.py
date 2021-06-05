@@ -82,7 +82,7 @@ class MemberVue(EventVue):
     def update_member(self):
         member = self.search_member()
         data = {}
-        print("Update client")
+        print("Mise à jour du client")
         print()
         data['firstname'] = self._common.ask_name(key_name="firstname", default=member['firstname'])
         data['lastname'] = self._common.ask_name(key_name="lastname", default=member['lastname'])
@@ -104,10 +104,10 @@ class MemberVue(EventVue):
 
     def ask_command(self, commands):
 
-        command = input('command > ').lower().strip()
+        command = input('commande > ').lower().strip()
         while command not in commands.keys():
             print("Commande inconnue")
-            command = input('command >').lower().strip()
+            command = input('commande >').lower().strip()
 
         return command
 
@@ -140,11 +140,11 @@ class MemberVue(EventVue):
     def member_shell(self):
 
         commands = {
-            "exit": "Partir du Shell Shell",
+            "quitter": "Partir du Shell",
             "creer": "Creer un compte",
             "connexion": "Connectez-vous",
             "event": "Afficher les évènements",
-            "help": "Afficher cette aide"
+            "aide": "Afficher cette aide"
         }
 
         self.help_member(commands)
@@ -152,8 +152,7 @@ class MemberVue(EventVue):
         while True:
             try:
                 command = self.ask_command(commands)
-                if command == 'exit':
-                    # Exit loop
+                if command == 'quitter':
                     break
                 elif command == 'creer':
                     user_type = 'unknown'
@@ -166,7 +165,7 @@ class MemberVue(EventVue):
                     commands_connecte = {
                         "inscription": "S'inscrire à un évènement",
                         "deconnexion": "déconnectez-vous",
-                        "help": "Montrer l'aide"
+                        "aide": "Montrer l'aide"
                     }
                     self.help_member(commands_connecte)
                     while True:
@@ -185,7 +184,7 @@ class MemberVue(EventVue):
                                         command = self.ask_command(commands_inscr)
                                         if command == 'retour':
                                             break
-                                        if command == 'help':
+                                        if command == 'aide':
                                             self.help_member(commands_inscr)
                                         if command == 'inscription':
                                             self.ask_resa(member)
@@ -198,26 +197,26 @@ class MemberVue(EventVue):
                                 self.help_member(commands_connecte)
                             elif command == 'deconnexion':
                                 break
-                            elif command == 'help':
+                            elif command == 'aide':
                                 self.help_member(commands_connecte)
                             else:
                                 print("Commande inconnue")
                         except ResourceNotFound:
-                            self.error_message("Member not found")
+                            self.error_message("Membre introuvable")
                         except InvalidData as e:
                             self.error_message(str(e))
                         except Error as e:
-                            self.error_message("An error occurred (%s)" % str(e))
+                            self.error_message("Une erreur est survenue (%s)" % str(e))
                     self.help_member(commands)
                 elif command == 'event':
                     self.show_events()
-                elif command == 'help':
+                elif command == 'aide':
                     self.help_member(commands)
                 else:
-                    print("Unknown command")
+                    print("Commande inconnue")
             except ResourceNotFound:
-                self.error_message("Member not found")
+                self.error_message("Membre introuvable")
             except InvalidData as e:
                 self.error_message(str(e))
             except Error as e:
-                self.error_message("An error occurred (%s)" % str(e))
+                self.error_message("Une erreur est survenue (%s)" % str(e))

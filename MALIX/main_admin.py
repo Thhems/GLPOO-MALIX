@@ -7,7 +7,7 @@ from vue.admin_vue import AdminVue
 
 
 def main():
-    print("Welcome to MALIX")
+    print("Bienvenue sur MALIX")
 
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')

@@ -42,7 +42,7 @@ class ListVue:
         print("/!\\ %s" % message.upper())
 
     def succes_message(self, message: str = ""):
-        print("Operation succeeded: %s" % message)
+        print("Succès de l'opération: %s" % message)
 
     def show_lists(self):
 
@@ -74,7 +74,7 @@ class ListVue:
     def update_member(self):
         member = self.search_member()
         data = {}
-        print("Update réservation")
+        print("Mise à jour de la réservation")
         print()
         data['firstname'] = self._common.ask_name(key_name="firstname", default=member['firstname'])
         data['lastname'] = self._common.ask_name(key_name="lastname", default=member['lastname'])

@@ -58,7 +58,7 @@ class EventDAO(DAO):
             self._database_session.merge(event)
             self._database_session.flush()
         except IntegrityError:
-            raise Error("Error data may be malformed")
+            raise Error("Erreur la donnée est peut-être malformée")
         return event
 
     def delete(self, entity):

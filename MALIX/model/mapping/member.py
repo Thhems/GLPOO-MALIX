@@ -16,7 +16,7 @@ class Member(Base):
     type = Column(String(10), nullable=False)
 
     def __repr__(self):
-        return "<Member(%s %s %s)>" % (self.firstname, self.lastname.upper(), self.type)
+        return "<Membre: (%s %s %s)>" % (self.firstname, self.lastname.upper(), self.type)
 
     def to_dict(self):
         return {
