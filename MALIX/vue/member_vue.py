@@ -174,6 +174,28 @@ class MemberVue(EventVue):
                             command = self.ask_command(commands_connecte)
                             if command == 'inscription':
                                 self.ask_resa(member)
+                                commands_inscr = {
+                                    "retour": "retour au menu",
+                                    "inscription": 'S\'inscrire à un autre événement',
+                                    "help": "Montrer l'aide"
+                                }
+                                self.help_member(commands_inscr)
+                                while True:
+                                    try:
+                                        command = self.ask_command(commands_inscr)
+                                        if command == 'retour':
+                                            break
+                                        if command == 'help':
+                                            self.help_member(commands_inscr)
+                                        if command == 'inscription':
+                                            self.ask_resa(member)
+                                    except ResourceNotFound:
+                                        self.error_message("Member not found")
+                                    except InvalidData as e:
+                                        self.error_message(str(e))
+                                    except Error as e:
+                                        self.error_message("An error occurred (%s)" % str(e))
+                                self.help_member(commands_connecte)
                             elif command == 'deconnexion':
                                 break
                             elif command == 'help':

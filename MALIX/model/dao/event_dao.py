@@ -51,9 +51,9 @@ class EventDAO(DAO):
         if 'places' in data:
             event.places = data['places']
         if 'lieu' in data:
-            event.places = data['lieu']
+            event.lieu = data['lieu']
         if 'prix' in data:
-            event.places = data['prix']
+            event.prix = data['prix']
         try:
             self._database_session.merge(event)
             self._database_session.flush()
