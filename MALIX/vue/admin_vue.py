@@ -45,9 +45,9 @@ class AdminVue(MemberVue, EventVue, ListVue):
             "ajoutevent": "Ajouter un évènement",
             "listevent": "Lister les évènements",
             "event": "Afficher un évènement",
-            "dsupprevent": "Supprimer un évènement",
+            "supprevent": "Supprimer un évènement",
             "majevent": "Mettre à jour un évènement",
-            "list": "Lister les peronnes inscrites",
+            "list": "Lister les personnes inscrites",
             "aide": "Afficher l'aide"
         }
 

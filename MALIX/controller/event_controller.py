@@ -74,7 +74,7 @@ class EventController:
         for mandatory, specs in mandatories.items():
             if not update:
                 if mandatory not in data or data[mandatory] is None:
-                    raise InvalidData("MIl manque une valeur %s" % mandatory)
+                    raise InvalidData("Il manque une valeur %s" % mandatory)
             else:
                 if mandatory not in data:
                     continue
