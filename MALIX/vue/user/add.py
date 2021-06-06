@@ -32,13 +32,13 @@ class AddUserQt(BasicWindow):
 
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
-        btn_add = QPushButton('Add User', self)
+        btn_add = QPushButton('Ajouter User', self)
         btn_add.clicked.connect(self.addUser)
         btn_add.resize(btn_add.sizeHint())
         btn_add.move(90, 100)
         ValidationLayout.addWidget(btn_add)
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Close', self)
+        btn_cancel = QPushButton('Fermer', self)
         btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)

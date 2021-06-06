@@ -87,11 +87,10 @@ class ListEventQtUser(BasicWindow):
 
     def subscribe_event(self):
         if self.subscribeEventWindow is None:
-            self.subscribeEventWindow = AddEventQt(self._event_controller, self)
+            print("inscription event")
         self.subscribeEventWindow.show()
 
     def unsubscribe_event(self):
         if self.unsubscribeEventWindow is None:
-            event = self.event_mapping[self.listwidget.currentRow()]
-            self.unsubscribeEventWindow = EditEventQt(self._event_controller, event['id'], self)
+            print("desinscription event")
         self.unsubscribeEventWindow.show()

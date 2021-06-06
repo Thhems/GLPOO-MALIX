@@ -31,14 +31,14 @@ class DeleteUserQt(BasicWindow):
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
-        btn_delete = QPushButton('Delete User', self)
+        btn_delete = QPushButton('Supprimer', self)
         btn_delete.clicked.connect(self.deleteUser)
         btn_delete.resize(btn_delete.sizeHint())
         btn_delete.move(90, 100)
         ValidationLayout.addWidget(btn_delete)
 
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Quit', self)
+        btn_cancel = QPushButton('Quitter', self)
         btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)

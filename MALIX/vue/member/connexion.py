@@ -42,7 +42,7 @@ class ConnexionQt(BasicWindow):
         ValidationLayout.addWidget(btn_add)
 
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Close', self)
+        btn_cancel = QPushButton('Fermer', self)
         btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)

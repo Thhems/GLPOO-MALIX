@@ -37,14 +37,14 @@ class EditEventQt(BasicWindow):
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
-        btn_edit = QPushButton('Edit Event', self)
+        btn_edit = QPushButton('Editer Evenement', self)
         btn_edit.clicked.connect(self.editUser)
         btn_edit.resize(btn_edit.sizeHint())
         btn_edit.move(90, 100)
         ValidationLayout.addWidget(btn_edit)
 
         # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Quit', self)
+        btn_cancel = QPushButton('Quitter', self)
         btn_cancel.clicked.connect(self.quitEvent)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)

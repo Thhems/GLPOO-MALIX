@@ -20,9 +20,9 @@ class ListUserQt(BasicWindow):
         self.listlayout = QGridLayout()
         self.listwidget = QListWidget()
 
-        self.btn_add_user = QPushButton('Add user', self)
-        self.btn_edit_user = QPushButton('Edit user', self)
-        self.btn_delete_user = QPushButton('Delete user', self)
+        self.btn_add_user = QPushButton('Ajouter Utilisateur', self)
+        self.btn_edit_user = QPushButton('Editer Utilisateur', self)
+        self.btn_delete_user = QPushButton('Supprimer Utilisateur', self)
 
         self.member_mapping = {}
 
@@ -35,7 +35,7 @@ class ListUserQt(BasicWindow):
         self.listwidget.clear()
         index = 0
         for member in self._member_controller.list_members():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s" % (
+            self.listwidget.insertItem(index, " %s %s (%s) - [%s]" % (
                 member['firstname'],
                 member['lastname'],
                 member['email'],
@@ -65,7 +65,7 @@ class ListUserQt(BasicWindow):
         self.btn_delete_user.setEnabled(False)
         self.btn_delete_user.clicked.connect(self.delete_user)
 
-        btn_quit = QPushButton('Close', self)
+        btn_quit = QPushButton('Fermer', self)
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)
@@ -77,7 +77,7 @@ class ListUserQt(BasicWindow):
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 400, 200)
-        self.setWindowTitle('User menu')
+        self.setWindowTitle('Liste des Utilisateurs')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):

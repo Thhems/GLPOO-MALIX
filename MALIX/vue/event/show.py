@@ -66,7 +66,7 @@ class ListEventQt(BasicWindow):
         self.btn_delete_event.setEnabled(False)
         self.btn_delete_event.clicked.connect(self.delete_event)
 
-        btn_quit = QPushButton('Close', self)
+        btn_quit = QPushButton('Fermer', self)
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
         btn_quit.move(90, 100)
@@ -78,7 +78,7 @@ class ListEventQt(BasicWindow):
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 600, 200)
-        self.setWindowTitle('event menu')
+        self.setWindowTitle('Menu des evenements')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
