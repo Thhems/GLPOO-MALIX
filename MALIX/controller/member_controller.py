@@ -38,13 +38,6 @@ class MemberController:
             # log error
             raise e
 
-    def connect_user(self, data):
-        email =
-        lastname =
-        memberconnect = self.search_member_email(email, lastname)
-
-        return memberconnect
-
     def update_member(self, member_id, member_data):
 
         self._check_profile_data(member_data, update=True)

@@ -51,7 +51,8 @@ class EditUserQt(BasicWindow):
 
     def editUser(self):
         # Show subscription formular
-        data = {'firstname': self.first_name.text(), 'lastname': self.last_name.text(), 'email': self.email.text(), 'type': 'customer'}
+        data = {'firstname': self.first_name.text(), 'lastname': self.last_name.text(), 'email': self.email.text(),
+                'type': 'customer'}
         self._member_controller.update_member(self.user_id, data)
         if self.show_vue is not None:
             self.show_vue.refresh()

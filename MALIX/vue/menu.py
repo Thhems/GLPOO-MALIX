@@ -101,8 +101,9 @@ class MenuWindowUser(BasicWindow):
 
     def Connexion(self):
         if self.ConnexionWindows is None:
-            self.ConnexionWindows = ConnexionQt(self._member_controller, self)
+            self.ConnexionWindows = ConnexionQt(self._member_controller, self, self._resa_controller)
             self.ConnexionWindows.show()
+            print("connecte")
 
     def CreerCompte(self):
         if self.CreerCompteWindow is None:
