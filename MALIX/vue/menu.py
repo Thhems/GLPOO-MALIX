@@ -1,4 +1,6 @@
 from controller.liste_controller import ListController
+from vue.member.connexion import ConnexionQt
+from vue.user.add import AddUserQt
 from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import ListUserQt
@@ -7,9 +9,9 @@ from controller.member_controller import MemberController
 from controller.event_controller import EventController
 
 
-
 class MenuWindow(BasicWindow):
-    def __init__(self, member_controller: MemberController, event_controller: EventController, resa_controller: ListController):
+    def __init__(self, member_controller: MemberController, event_controller: EventController,
+                 resa_controller: ListController):
         self._event_controller = event_controller
         self._member_controller = member_controller
         self._resa_controller = resa_controller
@@ -54,3 +56,55 @@ class MenuWindow(BasicWindow):
         if self.listEventWindow is None:
             self.listEventWindow = ListEventQt(self._event_controller)
             self.listEventWindow.show()
+
+
+class MenuWindowUser(BasicWindow):
+    def __init__(self, member_controller: MemberController, event_controller: EventController,
+                 resa_controller: ListController):
+
+        self._event_controller = event_controller
+        self._member_controller = member_controller
+        self._resa_controller = resa_controller
+
+        super().__init__()
+
+        self.ConnexionWindows = None
+        self.CreerCompteWindow = None
+
+        self.setup()
+
+    def setup(self):
+        btn_connexion = QPushButton('Connexion', self)
+        btn_connexion.resize(btn_connexion.sizeHint())
+        btn_connexion.move(80, 100)
+        btn_connexion.clicked.connect(self.Connexion)
+
+        btn_creercompte = QPushButton('Creer un copmpte', self)
+        btn_creercompte.resize(btn_creercompte.sizeHint())
+        btn_creercompte.move(0, 0)
+        btn_creercompte.clicked.connect(self.CreerCompte)
+
+        btn_quit = QPushButton('Quitter', self)
+        btn_quit.clicked.connect(QApplication.instance().quit)
+        btn_quit.resize(btn_quit.sizeHint())
+        btn_quit.move(90, 100)
+
+        layout = QVBoxLayout()
+        layout.addWidget(btn_connexion)
+        layout.addWidget(btn_creercompte)
+        layout.addWidget(btn_quit)
+
+        self.setGeometry(100, 100, 200, 150)
+        self.setWindowTitle('Shop application Menu')
+        self.setLayout(layout)
+        self.show()
+
+    def Connexion(self):
+        if self.ConnexionWindows is None:
+            self.ConnexionWindows = ConnexionQt(self._member_controller, self)
+            self.ConnexionWindows.show()
+
+    def CreerCompte(self):
+        if self.CreerCompteWindow is None:
+            self.CreerCompteWindow = AddUserQt(self._member_controller, self)
+            self.CreerCompteWindow.show()

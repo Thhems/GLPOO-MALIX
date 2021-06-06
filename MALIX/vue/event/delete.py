@@ -1,16 +1,20 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton
+
+from controller.event_controller import EventController
 from vue.window import BasicWindow
 from controller.member_controller import MemberController
 
 
 class DeleteEventQt(BasicWindow):
-    def __init__(self, member_controller: MemberController, id: str, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+    def __init__(self, event_controller: EventController, id: str, show_vue: BasicWindow = None):
+        self._event_controller = event_controller
         super().__init__()
-        self.user_id = id
-        self.first_name = QLineEdit()
-        self.last_name = QLineEdit()
-        self.email = QLineEdit()
+        self.event_id = id
+        self.name = QLineEdit()
+        self.date = QLineEdit()
+        self.places = QLineEdit()
+        self.lieu = QLineEdit()
+        self.prix = QLineEdit()
 
         self.show_vue = show_vue
         self.setup()
@@ -22,16 +26,24 @@ class DeleteEventQt(BasicWindow):
         # Create a form layout for the label and line edit
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
-        self.first_name.setEnabled(False)
-        Layout.addRow("First Name", self.first_name)
-        self.last_name.setEnabled(False)
-        Layout.addRow("Last Name", self.last_name)
-        self.email.setEnabled(False)
-        Layout.addRow("Email", self.email)
+        self.name.setEnabled(False)
+        Layout.addRow("Name", self.name)
+
+        self.date.setEnabled(False)
+        Layout.addRow("date", self.date)
+
+        self.places.setEnabled(False)
+        Layout.addRow("places", self.places)
+
+        self.lieu.setEnabled(False)
+        Layout.addRow("lieu", self.lieu)
+
+        self.prix.setEnabled(False)
+        Layout.addRow("prix", self.prix)
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
-        btn_delete = QPushButton('Delete User', self)
+        btn_delete = QPushButton('Delete Event', self)
         btn_delete.clicked.connect(self.deleteUser)
         btn_delete.resize(btn_delete.sizeHint())
         btn_delete.move(90, 100)
@@ -51,13 +63,15 @@ class DeleteEventQt(BasicWindow):
 
     def deleteUser(self):
         # Show subscription formular
-        self._member_controller.delete_member(self.user_id)
+        self._event_controller.delete_event(self.event_id)
         if self.show_vue is not None:
             self.show_vue.refresh()
         self.close()
 
     def fillform(self):
-        user = self._member_controller.get_member(self.user_id)
-        self.first_name.setText(user['firstname'])
-        self.last_name.setText(user['lastname'])
-        self.email.setText(user['email'])
+        event = self._event_controller.get_event(self.event_id)
+        self.name.setText(event['name'])
+        self.date.setText(event['date'])
+        self.places.setText(str(event['places']))
+        self.lieu.setText(event['lieu'])
+        self.prix.setText(str(event['prix']))

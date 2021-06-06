@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QListWidget, QGridLayout,  QVBoxLayout, QPushButto
 from vue.user.add import AddUserQt
 from vue.user.edit import EditUserQt
 from vue.user.delete import DeleteUserQt
-from vue.user.search import SearchUserQt
 from vue.window import BasicWindow
 from controller.member_controller import MemberController
 
@@ -16,7 +15,6 @@ class ListUserQt(BasicWindow):
         self.addUserWindow = None
         self.editUserWindow = None
         self.deleteUserWindow = None
-        self.searchUserWindow = None
         self.layout = QHBoxLayout()
 
         self.listlayout = QGridLayout()
@@ -25,7 +23,6 @@ class ListUserQt(BasicWindow):
         self.btn_add_user = QPushButton('Add user', self)
         self.btn_edit_user = QPushButton('Edit user', self)
         self.btn_delete_user = QPushButton('Delete user', self)
-        self.btn_search_user = QPushButton('Search user', self)
 
         self.member_mapping = {}
 
@@ -68,10 +65,6 @@ class ListUserQt(BasicWindow):
         self.btn_delete_user.setEnabled(False)
         self.btn_delete_user.clicked.connect(self.delete_user)
 
-        self.btn_search_user.resize(self.btn_edit_user.sizeHint())
-        self.btn_search_user.move(60, 80)
-        self.btn_search_user.clicked.connect(self.search_user)
-
         btn_quit = QPushButton('Close', self)
         btn_quit.clicked.connect(self.close)
         btn_quit.resize(btn_quit.sizeHint())
@@ -81,7 +74,6 @@ class ListUserQt(BasicWindow):
         buttonlayout.addWidget(self.btn_add_user)
         buttonlayout.addWidget(self.btn_edit_user)
         buttonlayout.addWidget(self.btn_delete_user)
-        buttonlayout.addWidget(self.btn_search_user)
         buttonlayout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 200, 150)
@@ -115,7 +107,8 @@ class ListUserQt(BasicWindow):
             self.deleteUserWindow = DeleteUserQt(self._member_controller, user['id'], self)
         self.deleteUserWindow.show()
 
-    def search_user(self):
-        if self.searchUserWindow is None:
-            self.searchUserWindow = SearchUserQt(self._member_controller, self)
-        self.searchUserWindow.show()
+    def ConnexionQt(self):
+        if self.deleteUserWindow is None:
+            user = self.member_mapping[self.listwidget.currentRow()]
+            self.deleteUserWindow = DeleteUserQt(self._member_controller, user['id'], self)
+        self.deleteUserWindow.show()

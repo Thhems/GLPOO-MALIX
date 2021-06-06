@@ -1,16 +1,21 @@
 from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton
+
+from controller.event_controller import EventController
 from vue.window import BasicWindow
 from controller.member_controller import MemberController
 
 
 class EditEventQt(BasicWindow):
-    def __init__(self, member_controller: MemberController, id: str, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+    def __init__(self, event_controller: EventController, id: str, show_vue: BasicWindow = None):
+        self._event_controller = event_controller
         super().__init__()
-        self.user_id = id
-        self.first_name = QLineEdit()
-        self.last_name = QLineEdit()
-        self.email = QLineEdit()
+
+        self.event_id = id
+        self.name = QLineEdit()
+        self.date = QLineEdit()
+        self.places = QLineEdit()
+        self.lieu = QLineEdit()
+        self.prix = QLineEdit()
 
         self.show_vue = show_vue
         self.setup()
@@ -23,15 +28,16 @@ class EditEventQt(BasicWindow):
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
 
-        Layout.addRow("First Name", self.first_name)
+        Layout.addRow("Name", self.name)
+        Layout.addRow("date", self.date)
+        Layout.addRow("places", self.places)
+        Layout.addRow("lieu", self.lieu)
+        Layout.addRow("prix", self.prix)
 
-        Layout.addRow("Last Name", self.last_name)
-
-        Layout.addRow("Email", self.email)
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
 
-        btn_edit = QPushButton('Edit User', self)
+        btn_edit = QPushButton('Edit Event', self)
         btn_edit.clicked.connect(self.editUser)
         btn_edit.resize(btn_edit.sizeHint())
         btn_edit.move(90, 100)
@@ -51,14 +57,20 @@ class EditEventQt(BasicWindow):
 
     def editUser(self):
         # Show subscription formular
-        data = {'firstname': self.first_name.text(), 'lastname': self.last_name.text(), 'email': self.email.text(), 'type': 'customer'}
-        self._member_controller.update_member(self.user_id, data)
+        data = {'name': self.name.text() ,
+                'date': self.date.text(),
+                'places': self.places.text(),
+                'lieu': self.lieu.text(),
+                'prix': self.prix.text()}
+        self._event_controller.update_event(self.event_id, data)
         if self.show_vue is not None:
             self.show_vue.refresh()
         self.close()
 
     def fillform(self):
-        user = self._member_controller.get_member(self.user_id)
-        self.first_name.setText(user['firstname'])
-        self.last_name.setText(user['lastname'])
-        self.email.setText(user['email'])
+        event = self._event_controller.get_event(self.event_id)
+        self.name.setText(event['name'])
+        self.date.setText(event['date'])
+        self.places.setText(str(event['places']))
+        self.lieu.setText(event['lieu'])
+        self.prix.setText(str(event['prix']))

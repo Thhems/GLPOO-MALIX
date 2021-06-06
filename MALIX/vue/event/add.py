@@ -25,9 +25,9 @@ class AddEventQt(BasicWindow, EventController):
         Layout = QFormLayout()
         # Add a label and a line edit to the form layout
 
-        Layout.addRow("Nom", self.first_name)
+        Layout.addRow("Nom", self.name)
 
-        Layout.addRow("date", self.last_name)
+        Layout.addRow("date", self.date)
 
         Layout.addRow("places", self.places)
 
@@ -40,7 +40,7 @@ class AddEventQt(BasicWindow, EventController):
         ValidationLayout = QVBoxLayout()
 
         btn_add = QPushButton('Ajouter l evenement', self)
-        btn_add.clicked.connect(self.add)
+        btn_add.clicked.connect(self.addEvent)
         btn_add.resize(btn_add.sizeHint())
         btn_add.move(90, 100)
         ValidationLayout.addWidget(btn_add)
@@ -57,25 +57,25 @@ class AddEventQt(BasicWindow, EventController):
         self.setLayout(outerLayout)
 
     def addEvent(self):
-        # Show subscription formular
-        data = {'Nom': self.ask_name.text(),
-                'date': self.ask_date.text(),
-                'places': self.ask_places.text(),
-                'lieu': self.ask_lieu.currentText(),
-                'prix': self.ask_prix.currentText()}
+        data = {'name': self.name.text() ,
+                'date': self.date.text(),
+                'places': self.places.text(),
+                'lieu': self.lieu.text(),
+                'prix': self.prix.text()}
         print(data)
-        self.create_event(data)
 
-        events = self.list_events()
+        self._event_controller.create_event(data)
+
+        events = self._event_controller.list_events()
 
         print("Events: ")
         for event in events:
-            print("* %s %s (%s) - %s  %s" % (
-                data['name'].capitalize(),
-                data['date'].capitalize(),
-                data['places'],
-                data['lieu'],
-                data['prix']))
+            print("Nom:%s Date:%s Nb places:%s  Lieu:%s  Prix:%s " % (
+                event['name'],
+                event['date'].capitalize(),
+                event['places'],
+                event['lieu'],
+                event['prix']))
         if self.show_vue is not None:
             self.show_vue.refresh()
         self.close()

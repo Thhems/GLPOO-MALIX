@@ -34,11 +34,12 @@ class MemberVue(EventVue):
         return self._member_controller.add_member(data)
 
     def connexion_member(self, user_type):
-        # Show subscription formular
         data = {}
         print("Connexion")
+
         email = self._common.ask_name('email')
         lastname = self._common.ask_name('lastname')
+
         member = self._member_controller.search_member_email(email, lastname)
         return member
 

@@ -38,6 +38,13 @@ class MemberController:
             # log error
             raise e
 
+    def connect_user(self, data):
+        email =
+        lastname =
+        memberconnect = self.search_member_email(email, lastname)
+
+        return memberconnect
+
     def update_member(self, member_id, member_data):
 
         self._check_profile_data(member_data, update=True)
@@ -53,22 +60,6 @@ class MemberController:
             member_dao = MemberDAO(session)
             member = member_dao.get(member_id)
             member_dao.delete(member)
-
-    def search_member(self, firstname, lastname):
-
-        # Query database
-        with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
-            member = member_dao.get_by_name(firstname, lastname)
-            return member.to_dict()
-
-    def search_member_email(self, email, lastname):
-
-        # Query database
-        with self._database_engine.new_session() as session:
-            member_dao = MemberDAO(session)
-            member = member_dao.get_by_email(email, lastname)
-            return member.to_dict()
 
     def _check_profile_data(self, data, update=False):
         name_pattern = re.compile("^[\S-]{2,50}$")
