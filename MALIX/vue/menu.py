@@ -5,8 +5,10 @@ from vue.window import BasicWindow
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
 from vue.user.show import ListUserQt
 from vue.event.show import ListEventQt
+from vue.member.showevent import ListEventQtUser
 from controller.member_controller import MemberController
 from controller.event_controller import EventController
+
 
 
 class MenuWindow(BasicWindow):
@@ -43,7 +45,7 @@ class MenuWindow(BasicWindow):
         layout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('Shop application Menu')
+        self.setWindowTitle('Menu Admin')
         self.setLayout(layout)
         self.show()
 
@@ -70,6 +72,7 @@ class MenuWindowUser(BasicWindow):
 
         self.ConnexionWindows = None
         self.CreerCompteWindow = None
+        self.ListEventWindow = None
 
         self.setup()
 
@@ -95,7 +98,7 @@ class MenuWindowUser(BasicWindow):
         layout.addWidget(btn_quit)
 
         self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('Shop application Menu')
+        self.setWindowTitle('Menu Utilisateur')
         self.setLayout(layout)
         self.show()
 
@@ -104,6 +107,9 @@ class MenuWindowUser(BasicWindow):
             self.ConnexionWindows = ConnexionQt(self._member_controller, self, self._resa_controller)
             self.ConnexionWindows.show()
             print("connecte")
+        if self.ListEventWindow is None:
+            self.ListEventWindow = ListEventQtUser(self._event_controller)
+            self.ListEventWindow.show()
 
     def CreerCompte(self):
         if self.CreerCompteWindow is None:
