@@ -48,6 +48,7 @@ class AdminVue(MemberVue, EventVue, ListVue):
             "supprevent": "Supprimer un évènement",
             "majevent": "Mettre à jour un évènement",
             "list": "Lister les personnes inscrites",
+            "supprinscrit": "supprimer un client inscrit",
             "aide": "Afficher l'aide"
         }
 
@@ -97,4 +98,3 @@ class AdminVue(MemberVue, EventVue, ListVue):
                 self.error_message(str(e))
             except Error as e:
                 self.error_message("An error occurred (%s)" % str(e))
-

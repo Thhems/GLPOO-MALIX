@@ -84,9 +84,9 @@ class ListVue:
         print()
         return self._member_controller.update_member(member['id'], data)
 
-    def delete_member(self):
+    def remove_member(self):
         member = self.search_member()
-        self._member_controller.delete_member(member['id'])
+        self._member_controller.remove_member(member['id'])
         self.succes_message()
 
     def help_member(self, commands):

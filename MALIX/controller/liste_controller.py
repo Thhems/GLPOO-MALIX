@@ -47,12 +47,9 @@ class ListController:
             member = member_dao.update(member, member_data)
             return member.to_dictliste()
 
-    def delete_member(self, member_id):
-
-        with self._database_engine.new_session() as session:
-            member_dao = ListDAO(session)
-            member = member_dao.get(member_id)
-            member_dao.delete(member)
+    def remove_member(self, member_id):
+        members= self._list_controller.list()
+        members.remove(member_id)
 
     def search_member(self, firstname, lastname):
 
