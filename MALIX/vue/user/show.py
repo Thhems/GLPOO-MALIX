@@ -76,7 +76,7 @@ class ListUserQt(BasicWindow):
         buttonlayout.addWidget(self.btn_delete_user)
         buttonlayout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 400, 200)
         self.setWindowTitle('User menu')
         self.layout.addLayout(buttonlayout)
 

@@ -44,7 +44,7 @@ class DeleteEventQt(BasicWindow):
         ValidationLayout = QVBoxLayout()
 
         btn_delete = QPushButton('Delete Event', self)
-        btn_delete.clicked.connect(self.deleteUser)
+        btn_delete.clicked.connect(self.deleteEvent())
         btn_delete.resize(btn_delete.sizeHint())
         btn_delete.move(90, 100)
         ValidationLayout.addWidget(btn_delete)
@@ -61,7 +61,7 @@ class DeleteEventQt(BasicWindow):
         # Set the window's main layout
         self.setLayout(outerLayout)
 
-    def deleteUser(self):
+    def deleteEvent(self):
         # Show subscription formular
         self._event_controller.delete_event(self.event_id)
         if self.show_vue is not None:

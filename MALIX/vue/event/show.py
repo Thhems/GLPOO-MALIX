@@ -35,7 +35,7 @@ class ListEventQt(BasicWindow):
         self.listwidget.clear()
         index = 0
         for event in self._event_controller.list_events():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s %s" % (
+            self.listwidget.insertItem(index, "Nom: %s Date: %s Nb places: %s  Lieu: %s Prix: %s€" % (
                 event['name'],
                 event['date'],
                 event['places'],
@@ -77,7 +77,7 @@ class ListEventQt(BasicWindow):
         buttonlayout.addWidget(self.btn_delete_event)
         buttonlayout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 600, 200)
         self.setWindowTitle('event menu')
         self.layout.addLayout(buttonlayout)
 

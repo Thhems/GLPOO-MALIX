@@ -34,11 +34,11 @@ class ListEventQtUser(BasicWindow):
         self.listwidget.clear()
         index = 0
         for event in self._event_controller.list_events():
-            self.listwidget.insertItem(index, "* %s %s (%s) - %s %s" % (
+            self.listwidget.insertItem(index, "%s le %s à %s, Place(s) restante(s): %s  Prix: %s " % (
                 event['name'],
                 event['date'],
-                event['places'],
                 event['lieu'],
+                event['places'],
                 event['prix']))
             self.event_mapping[index] = event
             index += 1
@@ -53,6 +53,7 @@ class ListEventQtUser(BasicWindow):
 
         self.btn_subscribe_event.resize(self.btn_subscribe_event.sizeHint())
         self.btn_subscribe_event.move(60, 20)
+        self.btn_subscribe_event.setEnabled(False)
         self.btn_subscribe_event.clicked.connect(self.subscribe_event)
 
         self.btn_unsubscribe_event.resize(self.btn_unsubscribe_event.sizeHint())
@@ -70,14 +71,14 @@ class ListEventQtUser(BasicWindow):
         buttonlayout.addWidget(self.btn_unsubscribe_event)
         buttonlayout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('event menu')
+        self.setGeometry(100, 100, 600, 200)
+        self.setWindowTitle('Liste des événements')
         self.layout.addLayout(buttonlayout)
 
     def clicked(self):
         item = self.listwidget.currentItem()
-        self.btn_edit_event.setEnabled(True)
-        self.btn_delete_event.setEnabled(True)
+        self.btn_subscribe_event.setEnabled(True)
+        self.btn_unsubscribe_event.setEnabled(True)
         print(item.text())
 
     def refresh(self):

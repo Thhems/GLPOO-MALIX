@@ -30,12 +30,8 @@ class AddUserQt(BasicWindow):
 
         Layout.addRow("Email", self.email)
 
-        self.type.addItem("customer")
-        self.type.addItem("seller")
-        Layout.addRow("Account type", self.type)
         # Create a layout for the checkboxes
         ValidationLayout = QVBoxLayout()
-
         btn_add = QPushButton('Add User', self)
         btn_add.clicked.connect(self.addUser)
         btn_add.resize(btn_add.sizeHint())
@@ -55,10 +51,11 @@ class AddUserQt(BasicWindow):
 
     def addUser(self):
         # Show subscription formular
+        self.type = 'customer'
         data = {'firstname': self.first_name.text(),
                 'lastname': self.last_name.text(),
                 'email': self.email.text(),
-                'type': self.type.currentText()}
+                'type': self.type}
         print(data)
         self._member_controller.create_member(data)
 

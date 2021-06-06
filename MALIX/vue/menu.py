@@ -29,7 +29,7 @@ class MenuWindow(BasicWindow):
         btn_listm.move(80, 100)
         btn_listm.clicked.connect(self.list_user)
 
-        btn_liste = QPushButton('Liste des events', self)
+        btn_liste = QPushButton('Liste des evenements', self)
         btn_liste.resize(btn_liste.sizeHint())
         btn_liste.move(0, 0)
         btn_liste.clicked.connect(self.list_event)
@@ -44,8 +44,8 @@ class MenuWindow(BasicWindow):
         layout.addWidget(btn_liste)
         layout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('Menu Admin')
+        self.setGeometry(100, 100, 300, 200)
+        self.setWindowTitle('Menu Administrateur')
         self.setLayout(layout)
         self.show()
 
@@ -82,7 +82,7 @@ class MenuWindowUser(BasicWindow):
         btn_connexion.move(80, 100)
         btn_connexion.clicked.connect(self.Connexion)
 
-        btn_creercompte = QPushButton('Creer un copmpte', self)
+        btn_creercompte = QPushButton('Creer un compte', self)
         btn_creercompte.resize(btn_creercompte.sizeHint())
         btn_creercompte.move(0, 0)
         btn_creercompte.clicked.connect(self.CreerCompte)
@@ -97,7 +97,7 @@ class MenuWindowUser(BasicWindow):
         layout.addWidget(btn_creercompte)
         layout.addWidget(btn_quit)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 300, 200)
         self.setWindowTitle('Menu Utilisateur')
         self.setLayout(layout)
         self.show()

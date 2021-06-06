@@ -70,7 +70,7 @@ class EditEventQt(BasicWindow):
     def fillform(self):
         event = self._event_controller.get_event(self.event_id)
         self.name.setText(event['name'])
-        self.date.setText(event['date'])
-        self.places.setText(event['places'])
+        self.date.setText(str(event['date']))
+        self.places.setText(str(event['places']))
         self.lieu.setText(event['lieu'])
-        self.prix.setText(event['prix'])
+        self.prix.setText(str(event['prix']))
