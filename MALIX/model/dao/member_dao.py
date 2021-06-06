@@ -47,7 +47,7 @@ class MemberDAO(DAO):
             self._database_session.add(member)
             self._database_session.flush()
         except IntegrityError:
-            raise Error("Member already exists")
+            raise Error("Le membre existe déja")
         return member
 
     def update(self, member: Member, data: dict):
@@ -63,7 +63,7 @@ class MemberDAO(DAO):
             self._database_session.merge(member)
             self._database_session.flush()
         except IntegrityError:
-            raise Error("Error data may be malformed")
+            raise Error("Erreur la donnée est peut-être malformée")
         return member
 
     def delete(self, entity):

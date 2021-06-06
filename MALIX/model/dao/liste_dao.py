@@ -64,7 +64,7 @@ class ListDAO(DAO):
             self._database_session.merge(member)
             self._database_session.flush()
         except IntegrityError:
-            raise Error("Error data may be malformed")
+            raise Error("Erreur la donnée est peut-être malformée")
         return member
 
     def delete(self, entity):

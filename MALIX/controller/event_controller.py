@@ -74,10 +74,10 @@ class EventController:
         for mandatory, specs in mandatories.items():
             if not update:
                 if mandatory not in data or data[mandatory] is None:
-                    raise InvalidData("Missing value %s" % mandatory)
+                    raise InvalidData("MIl manque une valeur %s" % mandatory)
             else:
                 if mandatory not in data:
                     continue
             value = data[mandatory]
             if "regex" in specs and isinstance(value, str) and not re.match(specs["regex"], value):
-                raise InvalidData("Invalid value %s" % mandatory)
+                raise InvalidData("Valeur invalide %s" % mandatory)

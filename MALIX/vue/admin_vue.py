@@ -26,10 +26,10 @@ class AdminVue(MemberVue, EventVue, ListVue):
 
     def ask_command(self, commands):
 
-        command = input('command > ').lower().strip()
+        command = input('commande > ').lower().strip()
         while command not in commands.keys():
-            print("Unknown command")
-            command = input('command >').lower().strip()
+            print("Commande inconnue")
+            command = input('commande >').lower().strip()
 
         return command
 
@@ -37,18 +37,18 @@ class AdminVue(MemberVue, EventVue, ListVue):
 
         commands = {
             "quitter": "Quitter",
-            "addclient": "Ajouter un client",
+            "ajoutclient": "Ajouter un client",
             "listclient": "Lister les clients",
             "client": "Afficher le profile d'un client",
-            "deleteclient": "Supprimer un client",
+            "supprclient": "Supprimer un client",
             "majclient": "Mettre à jour un client",
-            "addevent": "Ajouter un évènement",
+            "ajoutevent": "Ajouter un évènement",
             "listevent": "Lister les évènements",
             "event": "Afficher un évènement",
-            "deletevent": "Supprimer un évènement",
+            "dsupprevent": "Supprimer un évènement",
             "majevent": "Mettre à jour un évènement",
             "list": "Lister les peronnes inscrites",
-            "help": "Afficher l'aide"
+            "aide": "Afficher l'aide"
         }
 
         self.help(commands)
@@ -58,7 +58,7 @@ class AdminVue(MemberVue, EventVue, ListVue):
                 command = self.ask_command(commands)
                 if command == 'quitter':
                     break
-                elif command == 'addclient':
+                elif command == 'ajoutclient':
                     user_type = 'unknown'
                     member = self.create_member(user_type)
                     self.show_member(member)
@@ -67,12 +67,12 @@ class AdminVue(MemberVue, EventVue, ListVue):
                 elif command == 'client':
                     member = self.search_member()
                     self.show_member(member)
-                elif command == 'deleteclient':
+                elif command == 'supprclient':
                     self.delete_member()
                 elif command == 'majclient':
                     member = self.update_member()
                     self.show_member(member)
-                elif command == 'addevent':
+                elif command == 'ajoutevent':
                     event = self.add_event()
                     self.show_event(event)
                 elif command == 'listevent':
@@ -80,14 +80,14 @@ class AdminVue(MemberVue, EventVue, ListVue):
                 elif command == 'event':
                     event = self.search_event()
                     self.show_event(event)
-                elif command == 'deletevent':
+                elif command == 'supprevent':
                     self.delete_event()
                 elif command == 'majevent':
                     event = self.update_event()
                     self.show_event(event)
                 elif command == 'list':
                     self.show_lists()
-                elif command == 'help':
+                elif command == 'aide':
                     self.help(commands)
                 else:
                     print("Unknown command")

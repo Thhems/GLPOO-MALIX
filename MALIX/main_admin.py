@@ -11,7 +11,7 @@ from vue.menu import MenuWindow
 
 
 def main():
-    print("Welcome to MALIX")
+    print("Bienvenue sur MALIX")
 
     # Init db
     database_engine = DatabaseEngine(url='sqlite:///shop.db')

@@ -16,7 +16,7 @@ class Event(Base):
     prix = Column(Float(), nullable=False)
 
     def __repr__(self):
-        return "<Event (%s %s %s %s %s)>" % (self.name, self.date, self.places, self.lieu, self.prix)
+        return "<Événement: (%s %s %s %s %s)>" % (self.name, self.date, self.places, self.lieu, self.prix)
 
     def to_dict(self):
         return {

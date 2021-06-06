@@ -28,7 +28,7 @@ class EventVue:
         print("Détails de l'évènements: ")
         print(event['name'].capitalize())
         print("date:", event['date'])
-        print("Nombre de places:", event['places'])
+        print("Nombre de places restantes:", event['places'])
         print("Lieu: ", event['lieu'])
         print("Prix: ", event['prix'])
 
@@ -36,7 +36,7 @@ class EventVue:
         print("/!\\ %s" % message.upper())
 
     def succes_message(self, message: str = ""):
-        print("Operation succeeded: %s" % message)
+        print("Succès de l'opération: %s" % message)
 
     def show_events(self):
 
@@ -44,7 +44,7 @@ class EventVue:
 
         print("Events: ")
         for event in events:
-            print("* %s (%s) - %s places - %s - %s euros" % (event['name'],
+            print("* %s (%s) - %s places restantes - %s - %s euros" % (event['name'],
                                                              event['date'],
                                                              event['places'],
                                                              event['lieu'],

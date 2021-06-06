@@ -73,6 +73,6 @@ class MemberController:
                     continue
             value = data[mandatory]
             if "type" in specs and not isinstance(value, specs["type"]):
-                raise InvalidData("Invalid type %s" % mandatory)
+                raise InvalidData("Type invalide %s" % mandatory)
             if "regex" in specs and isinstance(value, str) and not re.match(specs["regex"], value):
-                raise InvalidData("Invalid value %s" % mandatory)
+                raise InvalidData("Valeur invalide %s" % mandatory)
